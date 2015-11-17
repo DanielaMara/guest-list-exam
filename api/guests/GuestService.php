@@ -20,7 +20,7 @@ class GuestService
     }
     
     
-    public static function add($newGuest) 
+    public static function add($newGuest)
     {
         $db = ConnectionFactory::getDB();
         $guest = $db->guests->insert($newGuest);
@@ -28,7 +28,7 @@ class GuestService
     }
     
     
-    public static function delete($id) 
+    public static function delete($id)
     {
         $db = ConnectionFactory::getDB();
         $guest = $db->guests[$id];

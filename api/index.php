@@ -6,7 +6,7 @@ require 'guests/GuestService.php';
 $app = new \Slim\Slim();
 
 
-$app->get('/guests', function() use ($app) 
+$app->get('/guests/', function() use ($app)
 {
     $guests = GuestService::listGuests();
     $app->response()->header('Content-Type', 'application/json');
@@ -15,16 +15,17 @@ $app->get('/guests', function() use ($app)
 
 
 
-$app->post('/guests', function() use ($app)
+$app->post('/guests/', function() use ($app)
 {
     $guestJson = $app->request()->getBody();
     $newGuest = json_decode($guestJson, true);
+    
     if($newGuest) 
     {
-        $guest = GuestService::add($newGuest);
-        $result = array('name'=>'This is a test','email'=>'test@gmail.com','id'=>'1');
-        
         $app->response()->header('Content-Type','application/json');
+        $guest = GuestService::add($newGuest);
+        $result = array('name'=>'This is a test','email'=>'test@gmail.com','id'=>$guest['id']);
+        
         echo json_encode($result);
     }
     else 
@@ -33,6 +34,7 @@ $app->post('/guests', function() use ($app)
         echo "Not possible save :(";
     }
 });
+
 
 
 

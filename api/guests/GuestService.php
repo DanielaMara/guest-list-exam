@@ -17,7 +17,29 @@ class GuestService
         }
         
         return $guests;
-    }    
+    }
+    
+    
+    public static function add($newGuest) 
+    {
+        $db = ConnectionFactory::getDB();
+        $guest = $db->guests->insert($newGuest);
+        return $guest;
+    }
+    
+    
+    public static function delete($id) 
+    {
+        $db = ConnectionFactory::getDB();
+        $guest = $db->guests[$id];
+        
+        if($guest)
+        {
+            $guest->delete();
+            return true;
+        }
+        return false;
+    }
 }
 
 ?>
